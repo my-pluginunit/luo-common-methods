@@ -82,7 +82,7 @@
 
     o.isSystem = function () {
       var p = navigator.platform;
-      os = p.indexOf("Win") === 0 ? 'window' :
+      var os = p.indexOf("Win") === 0 ? 'window' :
            p.indexOf("Mac") === 0 ? 'mac' :
            p.indexOf("Linux") === 0 ? 'linux' : 
            p.indexOf("iPhone") === 0 ? 'iphone' :

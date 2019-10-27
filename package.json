@@ -1,6 +1,6 @@
 {
   "name": "luo-common-methods",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Common method",
   "main": "index.min.js",
   "scripts": {
