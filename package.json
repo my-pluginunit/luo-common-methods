@@ -1,0 +1,11 @@
+{
+  "name": "luo-common-methods",
+  "version": "1.0.0",
+  "description": "Common method",
+  "main": "index.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "make 2019 by luo",
+  "license": "MIT"
+}
