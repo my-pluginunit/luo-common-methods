@@ -33,6 +33,7 @@
     theBlob.name = fileName;
     return theBlob;
   };
+
   var genUuid = function genUuid (len, radix) {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("");
     var uuid = [],
@@ -56,10 +57,105 @@
     return "luo-" + uuid.join("")
   };
 
+  var getEnvScien = function () {
+    var o = {ie: 0, ieStr: '0', firefox: 0, firefoxStr: '0', opera: 0, operaStr: '0', chrome: 0, chromeStr: '0', safari: 0, safariStr: '0'};
+    var a = navigator.userAgent.toLowerCase();
+
+    o.isMobile = function () {
+      return !!window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
+    };
+
+    o.isIpad = function () {
+      return (/ipad/i).test(a);
+    };
+
+    o.isAndroidOrIos = function () {
+      var os = "android";
+      var u = navigator.userAgent;
+      if (u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+        os = "ios";
+      } else if (u.indexOf("Android") > -1) { 
+        os = "android";
+      }
+      return os;
+    };
+
+    o.isSystem = function () {
+      var p = navigator.platform;
+      os = p.indexOf("Win") === 0 ? 'window' :
+           p.indexOf("Mac") === 0 ? 'mac' :
+           p.indexOf("Linux") === 0 ? 'linux' : 
+           p.indexOf("iPhone") === 0 ? 'iphone' :
+           p.indexOf("android") === 0 ? 'android' : '';
+      return os;
+    };
+
+    o.isWeixin = function () {
+      var is = a.match(/MicroMessenger/i);
+      return is && is.length && is[0] === 'micromessenger' ? true : false;
+    };
+
+    o.isAlipay = function () {
+      var is = a.match(/alipayclient/i);
+      return is && is.length && is[0] === "alipayclient" ? true : false;
+    };
+
+    o.isApp = function (appIdent) {
+      if (!appIdent || typeof appIdent !== 'string') throw new Error('[isApp]参数不对！');
+      var rega = new RegExp(appIdent.toLowerCase(), "i");
+      return a.match(rega) === appIdent.toLowerCase();
+    };
+    
+    try {
+      o.ie = a.match(/((rv:([\d.]+)\) like gecko?)|msie ([\d.]+))/);
+      if (o.ie && o.ie.length) {
+        var str = o.ie[0].replace(/(rv:|\) like gecko|msie )/g, '');
+        o.ieStr = str;
+        o.ie = Number(str.replace(/\..*/g, ''));
+        return o;
+      } else {o.ie = 0;}
+
+      o.firefox = a.match(/firefox\/([\d.]+)/);
+      if (o.firefox && o.firefox.length) {
+        var str = o.firefox[0].replace(/firefox\//, '');
+        o.firefoxStr = str;
+        o.firefox = Number(str.replace(/\..*/g, ''));
+        return o;
+      } else {o.firefox = 0;}
+
+      o.opera = a.match(/opr\/[\d.]+\s*/);
+      if (o.opera && o.opera.length) {
+        var str = o.opera[0].replace(/(opr\/|\s)/g, '');
+        o.operaStr = str;
+        o.opera = Number(str.replace(/\..*/g, ''));
+        return o;
+      } else {o.opera = 0;}
+      
+      o.safari = a.match(/version\/([\d.]+).*safari/);
+      if (o.safari && o.safari.length) {
+        var str = o.safari[0].replace(/(version\/| safari)/g, '');
+        o.safariStr = str
+        o.safari = Number(str.replace(/\..*/g, ''));
+        return o;
+      } else {o.safari = 0;}
+
+      o.chrome = a.match(/chrome\/([\d.]+) /);
+      if (o.chrome && o.chrome.length) {
+        var str = o.chrome[0].replace(/(chrome\/| )/g, '');
+        o.chromeStr = str;
+        o.chrome = Number(str.replace(/\..*/g, ''));
+        return o;
+      } else {o.chrome = 0;}
+      
+    } catch (e) {}
+    return o;
+  };
+  
   return {
     dataURLtoFile: dataURLtoFile,
     dataURLtoBlob: dataURLtoBlob,
     blobToFile: blobToFile,
-    genUuid: genUuid
+    genUuid: genUuid,
+    getEnvScien: getEnvScien
   }
 });
