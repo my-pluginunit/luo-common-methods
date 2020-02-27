@@ -1,4 +1,4 @@
-# luo-common-methods
+# Luo-Common-Methods
 
 > Common method
 
@@ -8,12 +8,6 @@
 ```bash
 npm install luo-common-methods -S
 ```
-
-## Props 
-
-| 参数类型 | 说明 |
-| ---------- | ----------- |
-| -- | ------------ |
 
 ## 将base64转换为文件
 
