@@ -100,6 +100,28 @@ let sys = getEnvScien();
 
 ```
 
+## 浏览器切换窗口事件
+
+```js
+import { pageVisibility } from 'luo-common-methods';
+pageVisibility.visibilitychange(function(){ 
+  console.log('刷新');
+  if(!pageVisibility.hidden){ // 页面进入时才执行
+    console.log("你切换回当前页面啦..."); 
+  }
+  if (pageVisibility.hidden) {
+    let time = Date.now();
+    console.log('离开');
+    // while (!((Date.now() - time) > 100000)) {
+    //   debugger;
+    //   console.log(111);
+    // }
+    console.log('离开1');
+  }
+});
+
+```
+
 # License
 
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
